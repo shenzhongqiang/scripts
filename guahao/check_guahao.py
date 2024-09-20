@@ -35,7 +35,9 @@ def curl_check():
         p = shift["price"] / 100
         s = shift["extraStateDesc"]
         print("{} - {}元 {}".format(d, p, s))
-        if s != "约满":
+        if s not in ["约满", "停诊"]:
+            playaudio("alert.m4a")
+            playaudio("alert.m4a")
             playaudio("alert.m4a")
 
 
