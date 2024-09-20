@@ -1,10 +1,11 @@
-from urllib.parse import urlparse, parse_qs
+import datetime
 import time
 import re
 import sys
 import json
 import requests
 import subprocess
+from urllib.parse import urlparse, parse_qs
 from playaudio import playaudio
 
 
@@ -20,12 +21,15 @@ def extract_expert_info(url):
 
 
 def curl_check():
+    now = datetime.datetime.now()
     output = subprocess.check_output("bash run.sh", shell=True)
     data = json.loads(output.decode("utf-8"))
     items = data["items"]
     shifts = []
     for item in items:
         shifts.extend(item["shiftCases"])
+
+    print(now.strftime("%Y-%m-%d %H:%M:%S"))
     for shift in shifts:
         d = shift["shiftDateFormat"]
         p = shift["price"] / 100
